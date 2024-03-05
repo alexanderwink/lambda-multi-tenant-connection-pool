@@ -60,8 +60,8 @@ func (c *ConnectionPool) GetConnection(dbName string) (*sql.DB, error) {
 
 		oldest := &c.InnerPool[indexes[0]]
 		for i := range indexes {
-			if c.InnerPool[i].Time.Before(oldest.Time) {
-				oldest = &c.InnerPool[i]
+			if c.InnerPool[indexes[i]].Time.Before(oldest.Time) {
+				oldest = &c.InnerPool[indexes[i]]
 			}
 		}
 		log.Trace().Msg("Returning existing connection")
